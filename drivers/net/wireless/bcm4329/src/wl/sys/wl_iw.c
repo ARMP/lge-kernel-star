@@ -871,11 +871,7 @@ wl_iw_set_power_mode(
 	int error = 0;
 	char *p = extra;
 	static int  pm = PM_FAST;
-#ifdef EXTREME_PM
-	int pm_local = PM_OFF;
-#else
-	int pm_local = PM_OFF;
-#endif
+	int  pm_local = PM_OFF;
 	char powermode_val = 0;
 
 	WL_TRACE_COEX(("%s: DHCP session cmd:%s\n", __FUNCTION__, extra));
@@ -1055,12 +1051,8 @@ wl_iw_set_btcoex_dhcp(
 
 #ifndef CUSTOMER_HW2
 	static int  pm = PM_FAST;
-#ifdef EXTREME_PM
-	int pm_local = PM_OFF;
-#else	
-	int pm_local = PM_OFF;
-#endif // EXTREME_PM
-#endif // CUSTOMER_HW2
+	int  pm_local = PM_OFF;
+#endif
 
 	char powermode_val = 0;
 	char buf_reg66va_dhcp_on[8] = { 66, 00, 00, 00, 0x10, 0x27, 0x00, 0x00 };
@@ -5445,11 +5437,7 @@ wl_iw_set_power(
 
 	WL_TRACE(("%s: SIOCSIWPOWER\n", dev->name));
 
-#ifdef EXTREME_PM
 	pm = vwrq->disabled ? PM_OFF : PM_MAX;
-#else	
-	pm = vwrq->disabled ? PM_OFF : PM_MAX;
-#endif // EXTREME_PM
 
 	pm = htod32(pm);
 	if ((error = dev_wlc_ioctl(dev, WLC_SET_PM, &pm, sizeof(pm))))
