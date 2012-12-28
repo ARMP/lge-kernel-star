@@ -563,6 +563,7 @@ static int dhd_set_suspend(int value, dhd_pub_t *dhd)
 #if 0 //                                                                                               
 	int power_mode = PM_MAX;
 	/* wl_pkt_filter_enable_t	enable_parm; */
+<<<<<<< HEAD
 	char iovbuf[32];
 	int bcn_li_dtim = 3;
 #endif
@@ -575,12 +576,20 @@ static int dhd_set_suspend(int value, dhd_pub_t *dhd)
 	uint roamvar = 1;
 	//char iovbuf[32];
 #endif /* if 1 */
+=======
+	char iovbuf[32];
+	int bcn_li_dtim = 0;
+>>>>>>> 230200a... Wifi fix: code refactoring
 
 	DHD_TRACE(("%s: enter, value = %d in_suspend=%d\n", \
 			__FUNCTION__, value, dhd->in_suspend));
 
+<<<<<<< HEAD
 	if (dhd && dhd->up) {  //                                                                                    
 //	if (dhd ) {
+=======
+	if (dhd && dhd->up) {
+>>>>>>> 230200a... Wifi fix: code refactoring
 		if (value && dhd->in_suspend) {
 
 				/* Kernel suspended */
@@ -598,6 +607,11 @@ static int dhd_set_suspend(int value, dhd_pub_t *dhd)
 				if(ap_priv_running == TRUE)
 					ap_suspend_status = 1;
 #endif
+<<<<<<< HEAD
+=======
+
+#if defined(EXTREME_PM)
+>>>>>>> 230200a... Wifi fix: code refactoring
 				/* if dtim skip setup as default force it to wake each thrid dtim
 				 *  for better power saving.
 				 *  Note that side effect is chance to miss BC/MC packet
@@ -606,12 +620,21 @@ static int dhd_set_suspend(int value, dhd_pub_t *dhd)
 				bcn_li_dtim = dhd_get_dtim_skip(dhd);
 				bcm_mkiovar("bcn_li_dtim", (char *)&bcn_li_dtim,
 					4, iovbuf, sizeof(iovbuf));
+				printk("%s: setting dtim skip to %d\n", __FUNCTION__, bcn_li_dtim);
 				dhdcdc_set_ioctl(dhd, 0, WLC_SET_VAR, iovbuf, sizeof(iovbuf));
 #endif
+<<<<<<< HEAD
 #if defined(CONFIG_BRCM_LGE_WL_ARPOFFLOAD)	/*Setting dtim.	20110120 */
 				bcn_li_dtim = wl_dtim_val;
 				printk("%s:%d wl_dtim_val = %d\n",__func__,__LINE__,wl_dtim_val);
 				if(bcn_li_dtim > 0){
+=======
+
+#if defined(CONFIG_BRCM_LGE_WL_ARPOFFLOAD)
+				/*Setting dtim.	20110120 */
+				if(wl_dtim_val > 0) {
+					bcn_li_dtim = wl_dtim_val;
+>>>>>>> 230200a... Wifi fix: code refactoring
 					bcm_mkiovar("bcn_li_dtim", (char *)&bcn_li_dtim,
 							4, iovbuf, sizeof(iovbuf));
 					dhdcdc_set_ioctl(dhd, 0, WLC_SET_VAR, iovbuf, sizeof(iovbuf));
@@ -645,17 +668,21 @@ static int dhd_set_suspend(int value, dhd_pub_t *dhd)
 #endif
 #if 0 //                                                                                               
 				/* restore pre-suspend setting for dtim_skip */
+<<<<<<< HEAD
 				bcm_mkiovar("bcn_li_dtim", (char *)&dhd->dtim_skip,
 					4, iovbuf, sizeof(iovbuf));
 
 				dhdcdc_set_ioctl(dhd, 0, WLC_SET_VAR, iovbuf, sizeof(iovbuf));
 #endif
 #if defined(CONFIG_BRCM_LGE_WL_ARPOFFLOAD)	/*Setting dtim.	20110120*/
+=======
+>>>>>>> 230200a... Wifi fix: code refactoring
 				bcn_li_dtim = 0;
 				bcm_mkiovar("bcn_li_dtim", (char *)&bcn_li_dtim,
 					4, iovbuf, sizeof(iovbuf));
 
 				dhdcdc_set_ioctl(dhd, 0, WLC_SET_VAR, iovbuf, sizeof(iovbuf));
+<<<<<<< HEAD
 #endif
 //                                                                                                                                                                 
 #if 1
@@ -664,6 +691,8 @@ static int dhd_set_suspend(int value, dhd_pub_t *dhd)
 						 sizeof(iovbuf));
 				dhdcdc_set_ioctl(dhd, 0, WLC_SET_VAR, iovbuf, sizeof(iovbuf));
 #endif /* if 1 */
+=======
+>>>>>>> 230200a... Wifi fix: code refactoring
 			}
 	}
 
